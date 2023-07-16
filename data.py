@@ -2,7 +2,7 @@ import requests
 import random
 import datetime
 
-base_url = "http://nova-hub.ru:9999/admin"  # Replace with your API base URL
+base_url = "http://localhost:9999/admin"  # Replace with your API base URL
 
 def create_station(name: str, lat: float, lng: float):
     payload = {
@@ -49,6 +49,7 @@ def create_ticket(train_id: int, departure_station_id: int, arrival_station_id: 
         "sold": sold,
         "service_class": service_class
     }
+    print("running")
     response = requests.post(f"{base_url}/tickets", json=payload)
     return response.json()
 
@@ -179,9 +180,9 @@ def data_to_create_ticket_price():
         create_ticket_price(ticket_id, date, price)
 
 if __name__ == "__main__":
-    # data_to_create_station()
-    # data_to_create_route()
-    # data_to_create_route_station()
-    # data_to_create_train()
-    # data_to_create_ticket()
+    data_to_create_station()
+    data_to_create_route()
+    data_to_create_route_station()
+    data_to_create_train()
+    data_to_create_ticket()
     data_to_create_ticket_price()

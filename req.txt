@@ -5,3 +5,5 @@ asyncpg
 uvicorn
 python-dotenv
 pydantic
+celery[redis]
+flower

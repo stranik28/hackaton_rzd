@@ -22,3 +22,27 @@ services:
         - redis
       volumes:
         - .:/app
+    celery:
+      build:
+        context: .
+      env_file:
+        - .env
+      volumes:
+        - ./src/email:/app/email
+      command: ["/app/src/celery.sh", "celery"]
+      depends_on:
+        redis:
+          condition: service_started
+    flower:
+      build:
+        context: .
+      env_file:
+        - .env
+      command: ["/app/src/celery.sh", "flower"]
+      depends_on:
+        redis:
+          condition: service_started
+        celery:
+          condition: service_started
+      ports:
+        - 8888:5555
